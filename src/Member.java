@@ -3,6 +3,11 @@ import java.util.List;
 
 //Younoussa Daffe
 //ydaffe1@umbc.edu
+
+/**
+ * Member class that defines and initializes needed variables needed to create an account
+ *
+ */
 public class Member {
     private String memID;
     private String firstName;
@@ -18,31 +23,57 @@ public class Member {
         this.borrowedBooks = new ArrayList<>();
     }
 
+    /**
+     * Method which returns user's membership ID
+     * @return String
+     */
     public String getMemberId() {
         return memID;
     }
 
+    /**
+     * Method which returns user's full name
+     * @return String
+     */
     public String getName() {
         String fullName = firstName + " " + lastName;
         return fullName;
     }
 
+    /**
+     * Method which returns user's email
+     * @return String
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Method which returns all the books the user has borrowed
+     * @return List
+     */
     public List<Book> getBorrowedBooks() {
         return borrowedBooks;
     }
 
+    /**
+     * Method which adds book to borrowed books of the user.
+     */
     public void borrowBook(Book book) {
         borrowedBooks.add(book);
     }
 
+    /**
+     * Method which returns book to borrowed books of the user.
+     */
     public void returnBook(Book book) {
         borrowedBooks.remove(book);
     }
 
+    /**
+     * Method which returns relevant member infp in an organized string
+     * @return String
+     */
     @Override
     public String toString() {
         return "Member ID: " + memID + ", Name: " + getName() + ", Email: " + email +
