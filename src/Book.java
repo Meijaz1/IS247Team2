@@ -1,5 +1,14 @@
 //Younoussa Daffe
 //ydaffe1@umbc.edu
+
+
+/**
+* @param ~ title - Title of the book
+* @param ~ author - Author of the book
+* @param ~ genre - Genre of the book
+* @param ~ numberOfCopies - Number of copies of specific book
+* @param ~ available copies - Number of copies avaiable of specific book
+*/
 public class Book {
     private String title;
     private String author;
