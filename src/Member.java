@@ -7,6 +7,11 @@ import java.util.List;
 /**
  * Member class that defines and initializes needed variables needed to create an account
  * includes methods to get info and add and remove books
+ * @param ~ memID - user's member ID
+ * @param ~ firstName - user's first name
+ * @param ~ lastName - user's last name
+ * @param ~ email - user's email
+ * @param ~ borrowedBooks - All borrowed books by user
  */
 public class Member {
     private String memID;
