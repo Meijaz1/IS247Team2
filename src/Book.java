@@ -9,13 +9,16 @@
 * @param ~ numberOfCopies - Number of copies of specific book
 * @param ~ available copies - Number of copies avaiable of specific book
 */
-public class Book {
-    private String title;
-    private String author;
-    private String genre;
-    private int numberOfCopies;
-    private int availableCopies;
+    public class Book {
+        private String title;
+        private String author;
+        private String genre;
+        private int numberOfCopies;
+        private int availableCopies;
 
+    /**
+     * @Method ~ Book -
+     */
     public Book (String title, String author, String genre, int numberOfCopies, int availableCopies) {
         this.title = title;
         this.author = author;
@@ -23,7 +26,9 @@ public class Book {
         this.numberOfCopies = numberOfCopies;
         this.availableCopies = availableCopies;
     }
-
+    /**
+     * @Method ~ isAvailable -  to see if copy of book is available
+     */
     public boolean isAvailable() {
         if (availableCopies > 0) {
             return true;
@@ -32,12 +37,16 @@ public class Book {
             return false;
         }
     }
-
+    /**
+     * @Method ~ incrementCopies - to increase number of copies
+     */
     public void incrementCopies(int amount) {
         this.numberOfCopies += amount;
         this.availableCopies += amount;
     }
-
+    /**
+     * @Method ~ decrementCopies - to decrease number of copies
+     */
     public void decrementCopies(int amount) {
         this.numberOfCopies -= amount;
         this.availableCopies -= amount;
