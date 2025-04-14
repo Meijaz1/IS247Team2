@@ -29,7 +29,7 @@ public class Member {
     }
 
     /**
-     * @Method which returns user's membership ID
+     * Method which returns user's membership ID
      * @return String
      */
     public String getMemberId() {
@@ -37,7 +37,7 @@ public class Member {
     }
 
     /**
-     * @Method which returns user's full name
+     * Method which returns user's full name
      * @return String
      */
     public String getName() {
@@ -46,7 +46,7 @@ public class Member {
     }
 
     /**
-     * @Method which returns user's email
+     * Method which returns user's email
      * @return String
      */
     public String getEmail() {
@@ -54,7 +54,7 @@ public class Member {
     }
 
     /**
-     * @Method which returns all the books the user has borrowed
+     * Method which returns all the books the user has borrowed
      * @return List
      */
     public List<Book> getBorrowedBooks() {
@@ -62,21 +62,21 @@ public class Member {
     }
 
     /**
-     * @Method which adds book to borrowed books of the user.
+     * Method which adds book to borrowed books of the user.
      */
     public void borrowBook(Book book) {
         borrowedBooks.add(book);
     }
 
     /**
-     * @Method which returns book to borrowed books of the user.
+     * Method which returns book to borrowed books of the user.
      */
     public void returnBook(Book book) {
         borrowedBooks.remove(book);
     }
 
     /**
-     * @Method which returns relevant member info in an organized string
+     * Method which returns relevant member info in an organized string
      * @return String
      */
     @Override
