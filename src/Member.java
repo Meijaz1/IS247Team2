@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Member class that defines and initializes needed variables needed to create an account
- *
+ * includes methods to get info and add and remove books
  */
 public class Member {
     private String memID;
