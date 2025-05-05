@@ -41,11 +41,6 @@
         }
     }
 
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public String getGenre() { return genre; }
-    public String getISBN() { return ISBN; }
-
     /**
      * @Method ~ incrementCopies - to increase number of copies
      */
@@ -53,6 +48,7 @@
         this.numberOfCopies += amount;
         this.availableCopies += amount;
     }
+
     /**
      * @Method ~ decrementCopies - to decrease number of copies
      */
@@ -60,4 +56,9 @@
         this.numberOfCopies -= amount;
         this.availableCopies -= amount;
     }
+
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public String getGenre() { return genre; }
+    public String getISBN() { return ISBN; }
 }
