@@ -4,7 +4,6 @@ import java.util.List;
 public class LibrarySystem {
     private List<Book> books;
     private List<Member> members;
-    private int bookIdcount = 1;
     private int memberIdcount = 1;
 
     public LibrarySystem() {
@@ -27,7 +26,6 @@ public class LibrarySystem {
         return null;
     }
 
-    // Member Operations
     public void registerMember(String firstName, String lastName, String email) {
         String memId = "MEM" + memberIdcount++;
         members.add(new Member(memId, firstName, lastName, email));
@@ -40,6 +38,23 @@ public class LibrarySystem {
             }
         }
         return null;
+    }
+
+    public List<Book> searchBooks(String searchTerm) {
+        List<Book> results = new ArrayList<>();
+        for (Book book : books) {
+            if (book.getTitle().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                    book.getISBN().equalsIgnoreCase(searchTerm)) {
+                results.add(book);
+            }
+        }
+        return results;
+    }
+
+    public List<Book> getBorrowedBooks(String memId) throws MemberNotFoundException {
+        Member member = findMember(memId);
+        if (member == null) throw new MemberNotFoundException(memId);
+        return member.getBorrowedBooks();
     }
 
     public void borrowBook(String memId, String ISBN) throws LibraryException {
