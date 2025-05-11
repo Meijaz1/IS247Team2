@@ -5,6 +5,7 @@ public class LibrarySystem {
     private List<Book> books;
     private List<Member> members;
     private int memberIdcount = 1;
+    final private int borrowLimit = 3;
 
     public LibrarySystem() throws LibraryException {
         this.books = new ArrayList<>();
@@ -61,15 +62,20 @@ public class LibrarySystem {
         return member.getBorrowedBooks();
     }
 
-    public void borrowBook(String memId, String ISBN) throws LibraryException {
-        Member member = findMember(memId);
+    public void borrowBook(String memID, String ISBN) throws LibraryException {
+        Member member = findMember(memID);
         Book book = findBook(ISBN);
 
-        if (member == null) throw new MemberNotFoundException(memId);
+        if (member == null) throw new MemberNotFoundException(memID);
         if (book == null) throw new BookNotFoundException(ISBN);
 
-        member.borrowBook(book);
-        book.decrementCopies(1);
+        if (getBorrowedBooks(memID).size() >= borrowLimit) {
+            throw new BorrowLimitExceededException(borrowLimit);
+        }
+        else {
+            member.borrowBook(book);
+            book.decrementCopies(1);
+        }
     }
 
     public void returnBook(String memId, String ISBN) throws LibraryException {
