@@ -6,13 +6,27 @@ public class LibrarySystem {
     private List<Member> members;
     private int memberIdcount = 1;
 
-    public LibrarySystem() {
+    public LibrarySystem() throws LibraryException {
         this.books = new ArrayList<>();
         this.members = new ArrayList<>();
-        loadData();
+
+        if (books.isEmpty()) {
+            initializeBooks();
+        }
     }
 
-    public void addBook(String title, String author, String genre, int copies, String ISBN) {
+    private void initializeBooks() throws LibraryException {
+        registerBook("Red Rising", "Pierce Brown", "SCI-FI", 3, "0-345-53978-8");
+        registerBook("Golden Son", "Pierce Brown", "SCI-FI", 3, "0-345-53981-8");
+        registerBook("Morning Star", "Pierce Brown", "SCI-FI", 3, "0-345-53984-2");
+        registerBook("The Way of Kings", "Brandon Sanderson", "Fantasy", 3, "978-0-7653-2635-5");
+        registerBook("Words of Radiance", "Brandon Sanderson", "Fantasy", 3, "978-0-7653-2636-2");
+
+        registerMember("John", "Doe", "jdoe@gmail.com");
+        borrowBook("MEM1", "0-345-53978-8");
+    }
+
+    public void registerBook(String title, String author, String genre, int copies, String ISBN) {
         Book newBook = new Book(title, author, genre, copies, ISBN);
         books.add(newBook);
     }
@@ -26,9 +40,10 @@ public class LibrarySystem {
         return null;
     }
 
-    public void registerMember(String firstName, String lastName, String email) {
+    public String registerMember(String firstName, String lastName, String email) {
         String memId = "MEM" + memberIdcount++;
         members.add(new Member(memId, firstName, lastName, email));
+        return memId;
     }
 
     public Member findMember(String memId) {
@@ -38,17 +53,6 @@ public class LibrarySystem {
             }
         }
         return null;
-    }
-
-    public List<Book> searchBooks(String searchTerm) {
-        List<Book> results = new ArrayList<>();
-        for (Book book : books) {
-            if (book.getTitle().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                    book.getISBN().equalsIgnoreCase(searchTerm)) {
-                results.add(book);
-            }
-        }
-        return results;
     }
 
     public List<Book> getBorrowedBooks(String memId) throws MemberNotFoundException {
@@ -77,14 +81,6 @@ public class LibrarySystem {
 
         member.returnBook(book);
         book.incrementCopies(1);
-    }
-
-    private void loadData() {
-
-    }
-
-    public void saveData() {
-
     }
 
     public List<Book> getAllBooks() {

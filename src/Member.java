@@ -86,15 +86,6 @@ public class Member {
         checkOut(book);
     }
 
-    public Book returnBook() throws NoBooksBorrowedException {
-        if (borrowedBooks.isEmpty()) {
-            throw new NoBooksBorrowedException();
-        }
-        Book book = borrowedBooks.poll();
-        returnBook(book);
-        return book;
-    }
-
     /**
      * Method which returns relevant member info in an organized string
      * @return String

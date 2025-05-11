@@ -1,155 +1,211 @@
 //Younoussa Daffe
 //ydaffe1@umbc.edu
 
-import java.util.List;
 import java.util.Scanner;
+import java.util.List;
 
 public class Main {
-    final static Scanner input = new Scanner (System.in);
-    final static LibrarySystem system = new LibrarySystem();
+    final static Scanner input = new Scanner(System.in);
+    final static LibrarySystem system;
 
-    public static void printOpt () {
-        System.out.println("=== Library Management System ===");
-        System.out.println("1) Add Book");
-        System.out.println("2) Register Member");
-        System.out.println("3) Borrow Book");
-        System.out.println("4) Return Book");
-        System.out.println("5) List Books");
-        System.out.println("6) List Members");
-        System.out.println("7) Search Book");
-        System.out.println("8) Exit");
-        System.out.println("=================================");
-    }
-    public static void addBook () throws LibraryException  {
-        System.out.println("=== Add Book ===");
-
-        System.out.println("Enter Title: ");
-        String title = input.nextLine();
-
-        System.out.println("Enter Author: ");
-        String author = input.nextLine();
-
-        System.out.println("Enter Genre: ");
-        String genre = input.nextLine();
-
-        System.out.println("# of copies: ");
-        int copies = input.nextInt();
-
-        System.out.println("Enter ISBN: ");
-        String ISBN = input.nextLine();
-
-        system.addBook(title, author, genre, copies, ISBN);
-        System.out.println("Book added successfully!");
-    }
-    public static void registerMember () {
-        System.out.println("=== Register Member ===");
-
-        System.out.println("Enter First Name: ");
-        String first = input.nextLine();
-
-        System.out.println("Enter Last Name: ");
-        String last = input.nextLine();
-
-        System.out.println("Enter email: ");
-        String email = input.nextLine();
-
-        //Member mem = new Member(first, last, email);
-        system.registerMember(first, last, email);
-        System.out.println("Member registered successfully!");
-    }
-    public static void borrowBook () throws LibraryException {
-        System.out.println("=== Borrow Book ===");
-        System.out.println("Member ID: ");
-        String memId = input.nextLine();
-        System.out.println("Book ISBN: ");
-        String isbn = input.nextLine();
-
-        system.borrowBook(memId, isbn);
-        System.out.println("Book borrowed successfully!");
-    }
-    public static void returnBook () throws LibraryException {
-        System.out.println("=== Return Book ===");
-        System.out.println("Member ID: ");
-        String memId = input.nextLine();
-        System.out.println("Book ISBN: ");
-        String isbn = input.nextLine();
-
-        system.returnBook(memId, isbn);
-        System.out.println("Book returned successfully!");
-    }
-    public static void listBooks () {
-        System.out.println("=== All Books ===");
-        List<Book> books = system.getAllBooks();
-        if (books.isEmpty()) {
-            System.out.println("No books available.");
-        } else {
-            books.forEach(book -> System.out.println(book));
-        }
-    }
-    public static void listMembers () {
-        System.out.println("=== All Members ===");
-        List<Member> members = system.getAllMembers();
-        if (members.isEmpty()) {
-            System.out.println("No members registered.");
-        } else {
-            members.forEach(member -> System.out.println(member));
-        }
-    }
-    public static void searchBook () {
-        System.out.println("=== Search Book ===");
-        System.out.print("Enter title or ISBN: ");
-        String searchTerm = input.nextLine();
-
-        List<Book> results = system.searchBooks(searchTerm);
-        if (results.isEmpty()) {
-            System.out.println("No books found matching your search.");
-        } else {
-            System.out.println("\nSearch Results:");
-            results.forEach(book -> System.out.println(book));
-        }
-    }
-    public static void borrowedBooks () {
-        System.out.println("\n=== Borrowed Books ===");
-        System.out.print("Member ID: ");
-        String memId = input.nextLine();
-
+    static {
         try {
-            List<Book> borrowed = system.getBorrowedBooks(memId);
-            if (borrowed.isEmpty()) {
-                System.out.println("No books currently borrowed by this member.");
-            } else {
-                System.out.println("Borrowed Books:");
-                borrowed.forEach(book -> System.out.println(book));
-            }
-        } catch (MemberNotFoundException e) {
-            System.out.println("Error: " + e.getMessage());
+            system = new LibrarySystem();
+        } catch (LibraryException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    // Input Methods //
+
+    private static int intInput(String prompt) {
+        System.out.print(prompt);
+        while (!input.hasNextInt()) {
+            System.out.println("Please enter a number!");
+            input.next();
+        }
+        int value = input.nextInt();
+        input.nextLine();
+        return value;
+    }
+
+    private static String stringInput(String prompt) {
+        System.out.print(prompt);
+        return input.nextLine();
+    }
+
     public static void main(String[] args) {
+
         while (true) {
-            printOpt();
-            int choice = input.nextInt();
-            input.nextLine();
+            printMainMenu();
+            int opt = intInput("Enter option: ");
 
             try {
-                switch (choice) {
-                    case 1 -> addBook();
-                    case 2 -> registerMember();
-                    case 3 -> borrowBook();
-                    case 4 -> returnBook();
-                    case 5 -> listBooks();
-                    case 6 -> listMembers();
-                    case 7 -> searchBook();
-                    case 8 -> borrowedBooks();
-                    case 9 -> {
-                        system.saveData();
+                switch (opt) {
+                    case 1 -> bookMenu();
+                    case 2 -> memberMenu();
+                    case 3 -> infoMenu();
+                    case 4 -> {
+                        System.out.println("Exiting system...");
                         System.exit(0);
                     }
-                    default -> System.out.println("Invalid choice!");
+                    default -> System.out.println("Invalid option!");
                 }
             } catch (LibraryException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
+    }
+
+    // Menu Methods //
+
+    private static void printMainMenu() {
+        System.out.println("=== LIBRARY MANAGEMENT SYSTEM ===");
+        System.out.println("1. Book Management");
+        System.out.println("2. Member Management");
+        System.out.println("3. Information");
+        System.out.println("4. Exit");
+        System.out.println("==================================");
+    }
+
+    private static void bookMenu() throws LibraryException {
+        while (true) {
+            System.out.println("=== BOOK MANAGEMENT ===");
+            System.out.println("1. Register Book");
+            System.out.println("2. Borrow Book");
+            System.out.println("3. Return Book");
+            System.out.println("4. Back to Main Menu");
+
+            int opt = intInput("Enter option: ");
+            switch (opt) {
+                case 1 -> registerBook();
+                case 2 -> borrowBook();
+                case 3 -> returnBook();
+                case 4 -> {
+                    return;
+                }
+                default -> System.out.println("Invalid option!");
+            }
+        }
+    }
+
+    private static void memberMenu() throws LibraryException {
+        while (true) {
+            System.out.println("=== MEMBER MANAGEMENT ===");
+            System.out.println("1. Register Member");
+            System.out.println("2. Back to Main Menu");
+
+            int opt = intInput("Enter option: ");
+            switch (opt) {
+                case 1 -> registerMember();
+                case 2-> {
+                    return;
+                }
+                default -> System.out.println("Invalid option!");
+            }
+        }
+    }
+
+    private static void infoMenu() {
+        while (true) {
+            System.out.println("=== INFORMATION ===");
+            System.out.println("1. View All Borrowed Books");
+            System.out.println("2. View All Members");
+            System.out.println("3. View All Books");
+            System.out.println("4. Back to Main Menu");
+
+            int opt = intInput("Enter option: ");
+            switch (opt) {
+                case 1 -> viewBorrowedBooks();
+                case 2 -> listAllMembers();
+                case 3 -> listAllBooks();
+                case 4 -> {
+                    return;
+                }
+                default -> System.out.println("Invalid option!");
+            }
+        }
+    }
+
+    // Action Methods //
+
+    private static void registerBook() throws LibraryException {
+        System.out.println("=== Add New Book ===");
+        String title = stringInput("Title: ");
+        String author = stringInput("Author: ");
+        String genre = stringInput("Genre: ");
+        int copies = intInput("Number of copies: ");
+        String ISBN = stringInput("ISBN: ");
+
+        system.registerBook(title, author, genre, copies, ISBN);
+        System.out.println("Book added successfully!");
+    }
+
+    private static void borrowBook() throws LibraryException {
+        System.out.println("=== Borrow Book ===");
+        String memId = stringInput("Member ID: ");
+        String isbn = stringInput("Book ISBN: ");
+
+        system.borrowBook(memId, isbn);
+        System.out.println("Book borrowed successfully!");
+    }
+
+    private static void returnBook() throws LibraryException {
+        System.out.println("=== Return Book ===");
+        String memId = stringInput("Member ID: ");
+        String isbn = stringInput("Book ISBN: ");
+
+        system.returnBook(memId, isbn);
+        System.out.println("Book returned successfully!");
+    }
+
+    private static void registerMember() {
+        System.out.println("=== Register Member ===");
+        String first = stringInput("First Name: ");
+        String last = stringInput("Last Name: ");
+        String email = stringInput("Email: ");
+
+        String memId = system.registerMember(first, last, email);
+        System.out.println("Member registered successfully! ID: " + memId);
+    }
+
+    private static void listAllMembers() {
+        System.out.println("=== ALL MEMBERS ===");
+        List<Member> members = system.getAllMembers();
+
+        if (members.isEmpty()) {
+            System.out.println("No members registered in the system.");
+        } else {
+            System.out.println("Total members: " + members.size());
+            members.forEach(member -> System.out.println("\n" + member));
+        }
+    }
+
+    // Display Methods //
+
+    private static void listAllBooks() {
+        System.out.println("=== All Books ===");
+        List<Book> books = system.getAllBooks();
+        if (books.isEmpty()) {
+            System.out.println("No books in library.");
+        } else {
+            books.forEach(book -> System.out.println(book.getTitle() + " by " + book.getAuthor()));
+        }
+    }
+
+    private static void viewBorrowedBooks() {
+        System.out.println("=== Borrowed Books ===");
+        String memId = stringInput("Member ID: ");
+
+        try {
+            List<Book> borrowed = system.getBorrowedBooks(memId);
+            if (borrowed.isEmpty()) {
+                System.out.println("No books currently borrowed.");
+            } else {
+                borrowed.forEach(book -> System.out.println(book.getTitle()));
+            }
+        } catch (MemberNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
