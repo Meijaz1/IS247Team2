@@ -1,12 +1,10 @@
-//Younoussa Daffe
-//ydaffe1@umbc.edu
-
 import java.util.Scanner;
 import java.util.List;
 
 public class Main {
     final static Scanner input = new Scanner(System.in);
     final static LibrarySystem system;
+
 
     static {
         try {
@@ -17,7 +15,9 @@ public class Main {
     }
 
     // Input Methods //
-
+    /**
+     * @Method ~ intInput - Method which allows user to input ints.
+     */
     private static int intInput(String prompt) {
         System.out.print(prompt);
         while (!input.hasNextInt()) {
@@ -28,7 +28,9 @@ public class Main {
         input.nextLine();
         return value;
     }
-
+    /**
+     * @Method ~ stringInput - Method which allows user to input strings
+     */
     private static String stringInput(String prompt) {
         System.out.print(prompt);
         return input.nextLine();
@@ -58,7 +60,9 @@ public class Main {
     }
 
     // Menu Methods //
-
+    /**
+     * @Method ~ printMainMenu - prints out all the options for management
+     */
     private static void printMainMenu() {
         System.out.println("=== LIBRARY MANAGEMENT SYSTEM ===");
         System.out.println("1. Book Management");
@@ -68,6 +72,9 @@ public class Main {
         System.out.println("==================================");
     }
 
+    /**
+     * @Method ~ bookMenu - prints out all options related to book management
+     */
     private static void bookMenu() throws LibraryException {
         while (true) {
             System.out.println("=== BOOK MANAGEMENT ===");
@@ -88,7 +95,9 @@ public class Main {
             }
         }
     }
-
+    /**
+     * @Method ~ memberMenu - prints out all options related to member management
+     */
     private static void memberMenu() throws LibraryException {
         while (true) {
             System.out.println("=== MEMBER MANAGEMENT ===");
@@ -105,7 +114,9 @@ public class Main {
             }
         }
     }
-
+    /**
+     * @Method ~ infoMenu - prints out all options related to info management
+     */
     private static void infoMenu() {
         while (true) {
             System.out.println("=== INFORMATION ===");
@@ -128,7 +139,9 @@ public class Main {
     }
 
     // Action Methods //
-
+    /**
+     * @Method ~ registerBook - prints out question in order to register a book
+     */
     private static void registerBook() throws LibraryException {
         System.out.println("=== Add New Book ===");
         String title = stringInput("Title: ");
@@ -140,7 +153,9 @@ public class Main {
         system.registerBook(title, author, genre, copies, ISBN);
         System.out.println("Book added successfully!");
     }
-
+    /**
+     * @Method ~ borrowBook - prints out question in order to borrow a book
+     */
     private static void borrowBook() throws LibraryException {
         System.out.println("=== Borrow Book ===");
         String memId = stringInput("Member ID: ");
@@ -149,7 +164,9 @@ public class Main {
         system.borrowBook(memId, isbn);
         System.out.println("Book borrowed successfully!");
     }
-
+    /**
+     * @Method ~ returnBook - prints out question in order to return a book
+     */
     private static void returnBook() throws LibraryException {
         System.out.println("=== Return Book ===");
         String memId = stringInput("Member ID: ");
@@ -158,7 +175,9 @@ public class Main {
         system.returnBook(memId, isbn);
         System.out.println("Book returned successfully!");
     }
-
+    /**
+     * @Method ~ registerMember - prints out question in order to register a member
+     */
     private static void registerMember() {
         System.out.println("=== Register Member ===");
         String first = stringInput("First Name: ");
@@ -169,6 +188,10 @@ public class Main {
         System.out.println("Member registered successfully! ID: " + memId);
     }
 
+    // Display Methods //
+    /**
+     * @Method ~ listAllMembers - prints out all members within system
+     */
     private static void listAllMembers() {
         System.out.println("=== ALL MEMBERS ===");
         List<Member> members = system.getAllMembers();
@@ -180,9 +203,9 @@ public class Main {
             members.forEach(member -> System.out.println("\n" + member));
         }
     }
-
-    // Display Methods //
-
+    /**
+     * @Method ~ listAllBooks - prints out all books within catalog
+     */
     private static void listAllBooks() {
         System.out.println("=== All Books ===");
         List<Book> books = system.getAllBooks();
@@ -192,7 +215,9 @@ public class Main {
             books.forEach(book -> System.out.println(book.getTitle() + " by " + book.getAuthor()));
         }
     }
-
+    /**
+     * @Method ~ viewBorrowedBooks - prints out question in order to see what a certain member borrowed
+     */
     private static void viewBorrowedBooks() {
         System.out.println("=== Borrowed Books ===");
         String memId = stringInput("Member ID: ");
