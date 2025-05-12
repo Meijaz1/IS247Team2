@@ -1,8 +1,8 @@
-📚 Library Management System
+ Library Management System
 
 IS247Team2 — Coding with Java 2**
 
-👥 Team Members
+ Team Members
 
 - **Michael Blackwell** – Project Manager  
 - **Younoussa Daffe** – Coder  
@@ -11,7 +11,7 @@ IS247Team2 — Coding with Java 2**
 
 ---
 
-📖 Project Description
+ Project Description
 
 The **Library Management System** is a Java-based application developed to address common challenges faced by libraries in the digital age. Our system aims to:
 
@@ -24,7 +24,7 @@ Through this project, we provide a streamlined solution that reduces manual task
 
 ---
 
-🔧 Technologies Used
+ Technologies Used
 
 - **Java** (Object-Oriented Programming)
 - **JavaDocs** for documentation
@@ -33,7 +33,7 @@ Through this project, we provide a streamlined solution that reduces manual task
 
 ---
 
-📑 JavaDocs
+ JavaDocs
 
 We have included comprehensive **JavaDocs** in our project, which provide clear descriptions of all classes, methods, and key functionalities. These documents help:
 
@@ -43,7 +43,7 @@ We have included comprehensive **JavaDocs** in our project, which provide clear 
 
 ---
 
-🛠️ Roles & Responsibilities
+ Roles & Responsibilities
 
 | Name              | Role            | Responsibilities                                        |
 |-------------------|------------------|----------------------------------------------------------|
@@ -54,7 +54,7 @@ We have included comprehensive **JavaDocs** in our project, which provide clear 
 
 ---
 
-🚀 Getting Started
+ Getting Started
 
 1. Clone the repository:
 
@@ -64,7 +64,7 @@ We have included comprehensive **JavaDocs** in our project, which provide clear 
 
 ---
 
-✅ Features
+ Features
 
 - Add, remove, and update book records
 - Register and manage library members
@@ -74,7 +74,7 @@ We have included comprehensive **JavaDocs** in our project, which provide clear 
 
 ---
 
-📌 Future Enhancements
+ Future Enhancements
 
 - Integration with a database for persistent storage  
 - GUI implementation using JavaFX or Swing  
@@ -83,6 +83,6 @@ We have included comprehensive **JavaDocs** in our project, which provide clear 
 
 ---
 
-📄 License
+ License
 
 This project is for educational purposes and not licensed for commercial distribution.
