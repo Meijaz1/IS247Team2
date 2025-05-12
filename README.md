@@ -1,6 +1,6 @@
  Library Management System
 
-IS247Team2 — Coding with Java 2**
+IS247Team2 — Coding with Java 2
 
  Team Members
 
